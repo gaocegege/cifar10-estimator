@@ -33,6 +33,7 @@ import functools
 import itertools
 import os
 import ast
+import json
 
 import cifar10
 import cifar10_model
@@ -393,9 +394,9 @@ if __name__ == '__main__':
   env = ast.literal_eval(os.environ["TF_CONFIG"])
   if env["task"]["type"] == "worker":
     env["task"]["type"] = "master"
-    env["cluster"]["master"] = env["cluster"]["worker"]
-    del env["cluster"]["worker"]
-  os.environ["TF_CONFIG"] = str(env)
+  env["cluster"]["master"] = env["cluster"]["worker"]
+  del env["cluster"]["worker"]
+  os.environ["TF_CONFIG"] = json.dumps(env)
   print(os.environ["TF_CONFIG"])
   parser = argparse.ArgumentParser()
   parser.add_argument(
