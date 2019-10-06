@@ -388,8 +388,6 @@ def main(job_dir, data_dir, num_gpus, variable_strategy,
 
 
 if __name__ == '__main__':
-  # Delete the env var which is set by tf-operator to keep the environment clean.
-  del os.environ["TF_CONFIG"]
   parser = argparse.ArgumentParser()
   parser.add_argument(
       '--data-dir',
