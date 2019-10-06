@@ -32,6 +32,7 @@ import argparse
 import functools
 import itertools
 import os
+import ast
 
 import cifar10
 import cifar10_model
@@ -388,6 +389,14 @@ def main(job_dir, data_dir, num_gpus, variable_strategy,
 
 
 if __name__ == '__main__':
+  env = ast.literal_eval(os.environ["TF_CONFIG"])
+  if env["task"]["type"] == "worker":
+    env["task"]["type"] = "master"
+    env["cluster"]["master"] = env["cluster"]["worker"]
+    del env["cluster"]["worker"]
+  print(env)
+  os.environ["TF_CONFIG"] = str(env)
+  print(os.environ["TF_CONFIG"])
   parser = argparse.ArgumentParser()
   parser.add_argument(
       '--data-dir',
