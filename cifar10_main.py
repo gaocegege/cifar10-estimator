@@ -389,12 +389,12 @@ def main(job_dir, data_dir, num_gpus, variable_strategy,
 
 
 if __name__ == '__main__':
+  print(os.environ["TF_CONFIG"])
   env = ast.literal_eval(os.environ["TF_CONFIG"])
   if env["task"]["type"] == "worker":
     env["task"]["type"] = "master"
     env["cluster"]["master"] = env["cluster"]["worker"]
     del env["cluster"]["worker"]
-  print(env)
   os.environ["TF_CONFIG"] = str(env)
   print(os.environ["TF_CONFIG"])
   parser = argparse.ArgumentParser()
