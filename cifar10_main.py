@@ -513,6 +513,9 @@ if __name__ == '__main__':
       help='Epsilon for batch norm.')
   args = parser.parse_args()
 
+  if env["task"]["type"] == "ps":
+    args.num_gpus = 0
+
   if args.num_gpus > 0:
     assert tf.test.is_gpu_available(), "Requested GPUs but none found."
   if args.num_gpus < 0:
