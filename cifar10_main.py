@@ -393,6 +393,7 @@ if __name__ == '__main__':
   print(os.environ["TF_CONFIG"])
   env = ast.literal_eval(os.environ["TF_CONFIG"])
   if env["task"]["type"] == "worker":
+    del os.environ["LD_LIBRARY_PATH"]
     env["task"]["type"] = "master"
   env["cluster"]["master"] = env["cluster"]["worker"]
   del env["cluster"]["worker"]
