@@ -37,8 +37,9 @@ import json
 
 env = ast.literal_eval(os.environ["TF_CONFIG"])
 if env["task"]["type"] == "ps":
-  os.environ["LD_LIBRARY_PATH"] = "$LD_LIBRARY_PATH:/usr/local/cuda/targets/x86_64-linux/lib/stubs"
-  print(os.environ["LD_LIBRARY_PATH"])
+  src = "/usr/local/cuda-9.0/targets/x86_64-linux/lib/stubs/libcuda.so"
+  dst = "/usr/lib/x86_64-linux-gnu/libcuda.so.1"
+  os.symlink(src, dst)
 
 import cifar10
 import cifar10_model
